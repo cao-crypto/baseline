@@ -377,3 +377,305 @@ use_transformer: False
 -------------- End ----------------
 
 === Pre-train Dataset (classes: [0, 3, 4, 8, 10, 11]) | Train: 6576 blocks | Valid: 573 blocks ===
+------------ Options -------------
+base_widths: [128, 64]
+batch_size: 16
+cvfold: 1
+data_check_samples: 8
+data_path: ../GPCPR-main-main/datasets/S3DIS/blocks_bs1_s1
+dataset: s3dis
+dd_ratio1: 1
+dd_ratio2: 2
+debug_data: False
+dgcnn_k: 20
+dgcnn_mlp_widths: [512, 256]
+dist_method: euclidean
+edgeconv_widths: [[64, 64], [64, 64], [64, 64]]
+embedding_num: 10
+embedding_type: gpt35
+eval_interval: 3
+gamma: 0.5
+generator_lr: 0.0002
+gmm_dropout: 0.1
+gmm_weight: 0.1
+k_shot: 1
+log_dir: ./log_s3dis/pretrain_S1
+lr: 0.001
+model_checkpoint_path: None
+n_episode_test: 100
+n_iters: 50
+n_queries: 1
+n_way: 2
+n_workers: 16
+noise_dim: 300
+output_dim: 64
+pc_attribs: xyzrgbXYZ
+pc_augm: True
+pc_augm_color: 0
+pc_augm_jitter: 1
+pc_augm_mirror_prob: 0
+pc_augm_rot: 1
+pc_augm_scale: 1.25
+pc_augm_shift: 0.1
+pc_in_dim: 9
+pc_npts: 2048
+persistent_workers: False
+phase: pretrain
+pin_memory: False
+prefetch_factor: 2
+pretrain_checkpoint_path: None
+pretrain_gamma: 0.5
+pretrain_lr: 0.001
+pretrain_step_size: 50
+pretrain_weight_decay: 0.0001
+save_path: ./log_s3dis/
+seed: 42
+step_size: 5000
+train_dim: 320
+trans_lr: 0.0001
+use_align: False
+use_attention: False
+use_dd_loss: False
+use_high_dgcnn: True
+use_linear_proj: False
+use_pcpr: False
+use_supervise_prototype: False
+use_text: False
+use_text_diff: False
+use_transformer: False
+-------------- End ----------------
+
+=== Pre-train Dataset (classes: [0, 3, 4, 8, 10, 11]) | Train: 6576 blocks | Valid: 573 blocks ===
+------------ Options -------------
+base_widths: [128, 64]
+batch_size: 16
+cvfold: 1
+data_check_samples: 8
+data_path: ../GPCPR-main-main/datasets/S3DIS/blocks_bs1_s1
+dataset: s3dis
+dd_ratio1: 1
+dd_ratio2: 2
+debug_data: False
+dgcnn_k: 20
+dgcnn_mlp_widths: [512, 256]
+dist_method: euclidean
+edgeconv_widths: [[64, 64], [64, 64], [64, 64]]
+embedding_num: 10
+embedding_type: gpt35
+eval_interval: 3
+gamma: 0.5
+generator_lr: 0.0002
+gmm_dropout: 0.1
+gmm_weight: 0.1
+k_shot: 1
+log_dir: ./log_s3dis/pretrain_S1
+lr: 0.001
+model_checkpoint_path: None
+n_episode_test: 100
+n_iters: 50
+n_queries: 1
+n_way: 2
+n_workers: 16
+noise_dim: 300
+output_dim: 64
+pc_attribs: xyzrgbXYZ
+pc_augm: True
+pc_augm_color: 0
+pc_augm_jitter: 1
+pc_augm_mirror_prob: 0
+pc_augm_rot: 1
+pc_augm_scale: 1.25
+pc_augm_shift: 0.1
+pc_in_dim: 9
+pc_npts: 2048
+persistent_workers: False
+phase: pretrain
+pin_memory: False
+prefetch_factor: 2
+pretrain_checkpoint_path: None
+pretrain_gamma: 0.5
+pretrain_lr: 0.001
+pretrain_step_size: 50
+pretrain_weight_decay: 0.0001
+save_path: ./log_s3dis/
+seed: 42
+step_size: 5000
+train_dim: 320
+trans_lr: 0.0001
+use_align: False
+use_attention: False
+use_dd_loss: False
+use_high_dgcnn: True
+use_linear_proj: False
+use_pcpr: False
+use_supervise_prototype: False
+use_text: False
+use_text_diff: False
+use_transformer: False
+-------------- End ----------------
+
+=== Pre-train Dataset (classes: [0, 3, 4, 8, 10, 11]) ===
+  Train dataset: 6576 blocks
+  Valid dataset: 573 blocks
+  Train blocks (first 5): ['Area_1_WC_1_block_0', 'Area_1_WC_1_block_1', 'Area_1_WC_1_block_10', 'Area_1_WC_1_block_11', 'Area_1_WC_1_block_13']
+  Valid blocks (first 5): ['Area_6_office_10_block_14', 'Area_6_office_10_block_16', 'Area_6_office_10_block_18', 'Area_6_office_10_block_19', 'Area_6_office_10_block_2']
+
+=== Validating TRAIN dataset ===
+  Total samples: 6576
+  First 5 blocks: ['Area_1_WC_1_block_0', 'Area_1_WC_1_block_1', 'Area_1_WC_1_block_10', 'Area_1_WC_1_block_11', 'Area_1_WC_1_block_13']
+------------ Options -------------
+base_widths: [128, 64]
+batch_size: 16
+cvfold: 1
+data_check_samples: 8
+data_path: ../GPCPR-main-main/datasets/S3DIS/blocks_bs1_s1
+dataset: s3dis
+dd_ratio1: 1
+dd_ratio2: 2
+debug_data: False
+dgcnn_k: 20
+dgcnn_mlp_widths: [512, 256]
+dist_method: euclidean
+edgeconv_widths: [[64, 64], [64, 64], [64, 64]]
+embedding_num: 10
+embedding_type: gpt35
+eval_interval: 3
+gamma: 0.5
+generator_lr: 0.0002
+gmm_dropout: 0.1
+gmm_weight: 0.1
+k_shot: 1
+log_dir: ./log_s3dis/pretrain_S1
+lr: 0.001
+model_checkpoint_path: None
+n_episode_test: 100
+n_iters: 50
+n_queries: 1
+n_way: 2
+n_workers: 16
+noise_dim: 300
+output_dim: 64
+pc_attribs: xyzrgbXYZ
+pc_augm: True
+pc_augm_color: 0
+pc_augm_jitter: 1
+pc_augm_mirror_prob: 0
+pc_augm_rot: 1
+pc_augm_scale: 1.25
+pc_augm_shift: 0.1
+pc_in_dim: 9
+pc_npts: 2048
+persistent_workers: False
+phase: pretrain
+pin_memory: False
+prefetch_factor: 2
+pretrain_checkpoint_path: None
+pretrain_gamma: 0.5
+pretrain_lr: 0.001
+pretrain_step_size: 50
+pretrain_weight_decay: 0.0001
+save_path: ./log_s3dis/
+seed: 42
+step_size: 5000
+train_dim: 320
+trans_lr: 0.0001
+use_align: False
+use_attention: False
+use_dd_loss: False
+use_high_dgcnn: True
+use_linear_proj: False
+use_pcpr: False
+use_supervise_prototype: False
+use_text: False
+use_text_diff: False
+use_transformer: False
+-------------- End ----------------
+
+=== Pre-train Dataset (classes: [0, 3, 4, 8, 10, 11]) ===
+  Train dataset: 6576 blocks
+  Valid dataset: 573 blocks
+  Train blocks (first 5): ['Area_1_WC_1_block_0', 'Area_1_WC_1_block_1', 'Area_1_WC_1_block_10', 'Area_1_WC_1_block_11', 'Area_1_WC_1_block_13']
+  Valid blocks (first 5): ['Area_6_office_10_block_14', 'Area_6_office_10_block_16', 'Area_6_office_10_block_18', 'Area_6_office_10_block_19', 'Area_6_office_10_block_2']
+
+=== Validating TRAIN dataset ===
+  Total samples: 6576
+  First 5 blocks: ['Area_1_WC_1_block_0', 'Area_1_WC_1_block_1', 'Area_1_WC_1_block_10', 'Area_1_WC_1_block_11', 'Area_1_WC_1_block_13']
+------------ Options -------------
+base_widths: [128, 64]
+batch_size: 16
+cvfold: 1
+data_check_samples: 8
+data_path: ../GPCPR-main-main/datasets/S3DIS/blocks_bs1_s1
+dataset: s3dis
+dd_ratio1: 1
+dd_ratio2: 2
+debug_data: False
+dgcnn_k: 20
+dgcnn_mlp_widths: [512, 256]
+dist_method: euclidean
+edgeconv_widths: [[64, 64], [64, 64], [64, 64]]
+embedding_num: 10
+embedding_type: gpt35
+eval_interval: 3
+gamma: 0.5
+generator_lr: 0.0002
+gmm_dropout: 0.1
+gmm_weight: 0.1
+k_shot: 1
+log_dir: ./log_s3dis/pretrain_S1
+lr: 0.001
+model_checkpoint_path: None
+n_episode_test: 100
+n_iters: 50
+n_queries: 1
+n_way: 2
+n_workers: 16
+noise_dim: 300
+output_dim: 64
+pc_attribs: xyzrgbXYZ
+pc_augm: True
+pc_augm_color: 0
+pc_augm_jitter: 1
+pc_augm_mirror_prob: 0
+pc_augm_rot: 1
+pc_augm_scale: 1.25
+pc_augm_shift: 0.1
+pc_in_dim: 9
+pc_npts: 2048
+persistent_workers: False
+phase: pretrain
+pin_memory: False
+prefetch_factor: 2
+pretrain_checkpoint_path: None
+pretrain_gamma: 0.5
+pretrain_lr: 0.001
+pretrain_step_size: 50
+pretrain_weight_decay: 0.0001
+save_path: ./log_s3dis/
+seed: 42
+step_size: 5000
+train_dim: 320
+trans_lr: 0.0001
+unsafe_allow_duplicate_openmp: False
+use_align: False
+use_attention: False
+use_dd_loss: False
+use_high_dgcnn: True
+use_linear_proj: False
+use_pcpr: False
+use_supervise_prototype: False
+use_text: False
+use_text_diff: False
+use_transformer: False
+-------------- End ----------------
+
+=== Pre-train Dataset (classes: [0, 3, 4, 8, 10, 11]) ===
+  Train dataset: 6576 blocks
+  Valid dataset: 573 blocks
+  Train blocks (first 5): ['Area_1_WC_1_block_0', 'Area_1_WC_1_block_1', 'Area_1_WC_1_block_10', 'Area_1_WC_1_block_11', 'Area_1_WC_1_block_13']
+  Valid blocks (first 5): ['Area_6_office_10_block_14', 'Area_6_office_10_block_16', 'Area_6_office_10_block_18', 'Area_6_office_10_block_19', 'Area_6_office_10_block_2']
+[OpenMP] OMP_NUM_THREADS=1, MKL_NUM_THREADS=1, NUMEXPR_NUM_THREADS=1
+
+=== Validating TRAIN dataset ===
+  Total samples: 6576
+  First 5 blocks: ['Area_1_WC_1_block_0', 'Area_1_WC_1_block_1', 'Area_1_WC_1_block_10', 'Area_1_WC_1_block_11', 'Area_1_WC_1_block_13']

@@ -35,10 +35,31 @@ def sample_K_pointclouds(data_path, num_point, pc_attribs, pc_augm, pc_augm_conf
 def sample_pointcloud(data_path, num_point, pc_attribs, pc_augm, pc_augm_config, scan_name,
                       sampled_classes, sampled_class=0, support=False, random_sample=False):
     sampled_classes = list(sampled_classes)
-    data = np.load(os.path.join(data_path, 'data', '%s.npy' %scan_name))
-    N = data.shape[0] #number of points in this scan
+    
+    # Build and validate file path
+    file_path = os.path.join(data_path, 'data', '%s.npy' % scan_name)
+    if not os.path.exists(file_path):
+        raise RuntimeError(f'File not found: {file_path}')
+    
+    # Load and validate data
+    data = np.load(file_path)
+    if len(data.shape) != 2:
+        raise RuntimeError(f'Expected 2D array for {scan_name} at {file_path}, got shape {data.shape}')
+    if data.shape[1] < 7:
+        raise RuntimeError(f'Expected at least 7 columns for {scan_name} at {file_path}, got {data.shape[1]}')
+    
+    N = data.shape[0]
+    if N <= 0:
+        raise RuntimeError(f'Empty point cloud for {scan_name} at {file_path}')
+    
+    # Validate labels column
+    labels_raw = data[:, 6]
+    if not np.issubdtype(labels_raw.dtype, np.integer) and not np.issubdtype(labels_raw.dtype, np.floating):
+        raise RuntimeError(f'Labels must be numeric for {scan_name} at {file_path}, got {labels_raw.dtype}')
 
     if random_sample:
+        if N <= 0:
+            raise RuntimeError(f'Cannot sample from empty point cloud: {scan_name} at {file_path}')
         sampled_point_inds = np.random.choice(np.arange(N), num_point, replace=(N < num_point))
     else:
         # If this point cloud is for support/query set, make sure that the sampled points contain target class
@@ -69,7 +90,8 @@ def sample_pointcloud(data_path, num_point, pc_attribs, pc_augm, pc_augm_config,
         xyz_min = np.amin(xyz, axis=0)
         XYZ = xyz - xyz_min
         xyz_max = np.amax(XYZ, axis=0)
-        XYZ = XYZ/xyz_max
+        # Avoid divide-by-zero
+        XYZ = XYZ / np.maximum(xyz_max, 1e-6)
 
     ptcloud = []
     if 'xyz' in pc_attribs: ptcloud.append(xyz)
@@ -85,7 +107,7 @@ def sample_pointcloud(data_path, num_point, pc_attribs, pc_augm, pc_augm_config,
             if label in sampled_classes:
                 groundtruth[i] = sampled_classes.index(label)+1
 
-    return ptcloud, groundtruth
+    return ptcloud.astype(np.float32), groundtruth.astype(np.int64)
 
 
 def augment_pointcloud(P, pc_augm_config):
@@ -347,6 +369,7 @@ class MyPretrainDataset(Dataset):
         self.pc_attribs = pc_attribs
         self.pc_augm = pc_augm
         self.pc_augm_config = pc_augm_config
+        self.mode = mode
 
         train_block_names = []
         all_block_names = []
@@ -358,11 +381,14 @@ class MyPretrainDataset(Dataset):
             train_block_names.extend(v[:n_train_blocks])
 
         if mode == 'train':
-            self.block_names = list(set(train_block_names))
+            self.block_names = sorted(list(set(train_block_names)))
         elif mode == 'test':
-            self.block_names = list(set(all_block_names) - set(train_block_names))
+            self.block_names = sorted(list(set(all_block_names) - set(train_block_names)))
         else:
             raise NotImplementedError('Mode is unknown!')
+
+        if len(self.block_names) == 0:
+            raise RuntimeError(f'Empty block list for mode {mode}')
 
         print('[Pretrain Dataset] Mode: {0} | Num_blocks: {1}'.format(mode, len(self.block_names)))
 
@@ -371,8 +397,42 @@ class MyPretrainDataset(Dataset):
 
     def __getitem__(self, index):
         block_name = self.block_names[index]
+        
+        # Build expected file path
+        npy_path = os.path.join(self.data_path, "data", f"{block_name}.npy")
 
-        ptcloud, label = sample_pointcloud(self.data_path, self.num_point, self.pc_attribs, self.pc_augm,
-                                           self.pc_augm_config, block_name, self.classes, random_sample=True)
-
-        return torch.from_numpy(ptcloud.transpose().astype(np.float32)), torch.from_numpy(label.astype(np.int64))
+        try:
+            # Check file exists before loading
+            if not os.path.exists(npy_path):
+                raise FileNotFoundError(f"File not found: {npy_path}")
+            
+            ptcloud, label = sample_pointcloud(self.data_path, self.num_point, self.pc_attribs, self.pc_augm,
+                                               self.pc_augm_config, block_name, self.classes, random_sample=True)
+            
+            # Validate output shapes
+            if len(ptcloud.shape) != 2:
+                raise RuntimeError(f"ptcloud is not 2D, got shape {ptcloud.shape}")
+            if len(label.shape) != 1:
+                raise RuntimeError(f"label is not 1D, got shape {label.shape}")
+            if ptcloud.shape[0] != self.num_point:
+                raise RuntimeError(f"ptcloud has {ptcloud.shape[0]} points, expected {self.num_point}")
+            if label.shape[0] != self.num_point:
+                raise RuntimeError(f"label has {label.shape[0]} points, expected {self.num_point}")
+            
+            # Validate finite values
+            if not np.isfinite(ptcloud).all():
+                raise RuntimeError("ptcloud contains inf/nan values")
+            
+            # Return CPU tensors only
+            return torch.from_numpy(ptcloud.transpose().astype(np.float32)), torch.from_numpy(label.astype(np.int64))
+            
+        except Exception as e:
+            raise RuntimeError(
+                f'Error in MyPretrainDataset[{index}]\n'
+                f'  Mode: {self.mode}\n'
+                f'  Block: {block_name}\n'
+                f'  File: {npy_path}\n'
+                f'  num_point: {self.num_point}\n'
+                f'  pc_attribs: {self.pc_attribs}\n'
+                f'  Original error: {repr(e)}'
+            ) from e

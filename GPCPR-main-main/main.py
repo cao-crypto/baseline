@@ -1,8 +1,15 @@
+# OpenMP/MKL thread environment bootstrap - must be at absolute top
+import os
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+os.environ.setdefault("NUMEXPR_NUM_THREADS", "1")
+
 """Main function for this repo
 
 """
 import ast
 import argparse
+import platform
 
 
 if __name__ == '__main__':
@@ -27,7 +34,14 @@ if __name__ == '__main__':
 
     #optimization
     parser.add_argument('--batch_size', type=int, default=1, help='Number of samples/tasks in one batch')
-    parser.add_argument('--n_workers', type=int, default=16, help='number of workers to load data')
+    parser.add_argument('--n_workers', type=int, default=0, help='Number of DataLoader workers. Use 0 on Windows for stable debugging; increase only after dataset validation passes.')
+    parser.add_argument('--unsafe_allow_duplicate_openmp', action='store_true', default=False, help='UNSAFE: Allow duplicate OpenMP runtime. Only for diagnosing environment problems. Can cause incorrect results or crashes.')
+    parser.add_argument('--pin_memory', action='store_true', help='Enable pin_memory for faster GPU transfer')
+    parser.add_argument('--prefetch_factor', type=int, default=2, help='Number of batches to prefetch per worker')
+    parser.add_argument('--persistent_workers', action='store_true', help='Keep workers alive between epochs')
+    parser.add_argument('--debug_data', action='store_true', help='Enable preflight dataset validation')
+    parser.add_argument('--data_check_samples', type=int, default=8, help='Number of samples to check during preflight validation')
+    parser.add_argument('--seed', type=int, default=42, help='Random seed for reproducibility')
     parser.add_argument('--n_iters', type=int, default=40000, help='number of iterations/epochs to train')
 
     parser.add_argument('--lr', type=float, default=0.001,
@@ -102,6 +116,13 @@ if __name__ == '__main__':
     parser.add_argument('--dd_ratio2', type=float, default=2, help='if use rkd loss function')
 
     args = parser.parse_args()
+
+    # Handle unsafe OpenMP option
+    if args.unsafe_allow_duplicate_openmp:
+        print('\n*** UNSAFE MODE ENABLED ***')
+        print('*** KMP_DUPLICATE_LIB_OK=TRUE can cause incorrect results or crashes ***')
+        print('*** Only use this for diagnosing environment problems ***\n')
+        os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
     args.edgeconv_widths = ast.literal_eval(args.edgeconv_widths)
     args.dgcnn_mlp_widths = ast.literal_eval(args.dgcnn_mlp_widths)
