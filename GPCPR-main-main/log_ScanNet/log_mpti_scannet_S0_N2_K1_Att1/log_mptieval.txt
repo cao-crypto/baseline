@@ -1,0 +1,390 @@
+------------ Options -------------
+base_widths: [128, 64]
+batch_size: 32
+cvfold: 0
+data_path: D:/pointcloud/attMPTI-main/datasets/ScanNet/scenes/data
+dataset: s3dis
+dgcnn_k: 20
+dgcnn_mlp_widths: [512, 256]
+dist_method: gaussian
+edgeconv_widths: [[64, 64], [64, 64], [64, 64]]
+eval_interval: 1500
+gamma: 0.5
+k_connect: 200
+k_shot: 1
+log_dir: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+lr: 0.001
+meta_path: D:/pointcloud/attMPTI-main/datasets/ScanNet/
+model_checkpoint_path: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+n_episode_test: 100
+n_iters: 30000
+n_queries: 1
+n_subprototypes: 100
+n_way: 2
+n_workers: 16
+output_dim: 64
+pc_attribs: xyzrgbXYZ
+pc_augm: False
+pc_augm_jitter: 1
+pc_augm_mirror_prob: 0
+pc_augm_rot: 1
+pc_augm_scale: 0
+pc_in_dim: 9
+pc_npts: 2048
+phase: mptieval
+pretrain_checkpoint_path: None
+pretrain_gamma: 0.5
+pretrain_lr: 0.001
+pretrain_step_size: 50
+pretrain_weight_decay: 0.0
+save_path: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+sigma: 1.0
+step_size: 5000
+use_attention: True
+-------------- End ----------------
+
+------------ Options -------------
+base_widths: [128, 64]
+batch_size: 32
+cvfold: 0
+data_path: D:/pointcloud/attMPTI-main/datasets/ScanNet/scenes/data
+dataset: scannet
+dgcnn_k: 20
+dgcnn_mlp_widths: [512, 256]
+dist_method: gaussian
+edgeconv_widths: [[64, 64], [64, 64], [64, 64]]
+eval_interval: 1500
+gamma: 0.5
+k_connect: 200
+k_shot: 1
+log_dir: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+lr: 0.001
+meta_path: D:/pointcloud/attMPTI-main/datasets/ScanNet/
+model_checkpoint_path: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+n_episode_test: 100
+n_iters: 30000
+n_queries: 1
+n_subprototypes: 100
+n_way: 2
+n_workers: 16
+output_dim: 64
+pc_attribs: xyzrgbXYZ
+pc_augm: False
+pc_augm_jitter: 1
+pc_augm_mirror_prob: 0
+pc_augm_rot: 1
+pc_augm_scale: 0
+pc_in_dim: 9
+pc_npts: 2048
+phase: mptieval
+pretrain_checkpoint_path: None
+pretrain_gamma: 0.5
+pretrain_lr: 0.001
+pretrain_step_size: 50
+pretrain_weight_decay: 0.0
+save_path: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+sigma: 1.0
+step_size: 5000
+use_attention: True
+-------------- End ----------------
+
+------------ Options -------------
+base_widths: [128, 64]
+batch_size: 32
+cvfold: 0
+data_path: D:/pointcloud/attMPTI-main/datasets/ScanNet/scenes/data
+dataset: scannet
+dgcnn_k: 20
+dgcnn_mlp_widths: [512, 256]
+dist_method: gaussian
+edgeconv_widths: [[64, 64], [64, 64], [64, 64]]
+eval_interval: 1500
+gamma: 0.5
+k_connect: 200
+k_shot: 1
+log_dir: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+lr: 0.001
+meta_path: D:/pointcloud/attMPTI-main/datasets/ScanNet/
+model_checkpoint_path: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+n_episode_test: 100
+n_iters: 30000
+n_queries: 1
+n_subprototypes: 100
+n_way: 2
+n_workers: 16
+output_dim: 64
+pc_attribs: xyzrgbXYZ
+pc_augm: False
+pc_augm_jitter: 1
+pc_augm_mirror_prob: 0
+pc_augm_rot: 1
+pc_augm_scale: 0
+pc_in_dim: 9
+pc_npts: 2048
+phase: mptieval
+pretrain_checkpoint_path: None
+pretrain_gamma: 0.5
+pretrain_lr: 0.001
+pretrain_step_size: 50
+pretrain_weight_decay: 0.0
+save_path: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+sigma: 1.0
+step_size: 5000
+use_attention: True
+-------------- End ----------------
+
+[Eval] Iter: 50 | Loss: 0.6364 | 2025-09-29 18:20:41.623031
+[Eval] Iter: 100 | Loss: 0.8331 | 2025-09-29 18:21:03.923413
+[Eval] Iter: 150 | Loss: 0.9266 | 2025-09-29 18:21:26.241370
+[Eval] Iter: 200 | Loss: 0.9374 | 2025-09-29 18:21:48.728979
+[Eval] Iter: 250 | Loss: 0.6682 | 2025-09-29 18:22:10.975735
+[Eval] Iter: 300 | Loss: 1.0154 | 2025-09-29 18:22:33.204137
+[Eval] Iter: 350 | Loss: 1.0400 | 2025-09-29 18:22:55.430575
+[Eval] Iter: 400 | Loss: 1.1966 | 2025-09-29 18:23:18.072873
+[Eval] Iter: 450 | Loss: 1.1202 | 2025-09-29 18:23:40.516002
+[Eval] Iter: 500 | Loss: 0.7917 | 2025-09-29 18:24:03.080988
+[Eval] Iter: 550 | Loss: 0.8405 | 2025-09-29 18:24:25.300463
+[Eval] Iter: 600 | Loss: 0.7757 | 2025-09-29 18:24:47.604285
+[Eval] Iter: 650 | Loss: 0.6593 | 2025-09-29 18:25:10.287131
+[Eval] Iter: 700 | Loss: 0.7307 | 2025-09-29 18:25:32.977330
+[Eval] Iter: 750 | Loss: 1.6462 | 2025-09-29 18:25:56.103751
+[Eval] Iter: 800 | Loss: 0.6204 | 2025-09-29 18:26:19.195522
+[Eval] Iter: 850 | Loss: 0.6245 | 2025-09-29 18:26:42.346808
+[Eval] Iter: 900 | Loss: 0.5124 | 2025-09-29 18:27:04.839901
+[Eval] Iter: 950 | Loss: 1.6282 | 2025-09-29 18:27:26.986044
+[Eval] Iter: 1000 | Loss: 0.9498 | 2025-09-29 18:27:48.900408
+[Eval] Iter: 1050 | Loss: 0.8339 | 2025-09-29 18:28:11.451262
+[Eval] Iter: 1100 | Loss: 1.1343 | 2025-09-29 18:28:33.202730
+[Eval] Iter: 1150 | Loss: 0.7608 | 2025-09-29 18:28:55.164166
+[Eval] Iter: 1200 | Loss: 1.2768 | 2025-09-29 18:29:17.917640
+[Eval] Iter: 1250 | Loss: 0.6970 | 2025-09-29 18:29:39.871184
+[Eval] Iter: 1300 | Loss: 1.0473 | 2025-09-29 18:30:01.893794
+[Eval] Iter: 1350 | Loss: 0.8845 | 2025-09-29 18:30:24.248340
+[Eval] Iter: 1400 | Loss: 1.0805 | 2025-09-29 18:30:45.898615
+[Eval] Iter: 1450 | Loss: 0.7626 | 2025-09-29 18:31:08.264814
+[Eval] Iter: 1500 | Loss: 1.0503 | 2025-09-29 18:31:31.179225
+[Eval] Iter: 1550 | Loss: 1.2450 | 2025-09-29 18:31:53.008447
+[Eval] Iter: 1600 | Loss: 0.7632 | 2025-09-29 18:32:15.271447
+[Eval] Iter: 1650 | Loss: 0.8586 | 2025-09-29 18:32:39.177309
+[Eval] Iter: 1700 | Loss: 0.8162 | 2025-09-29 18:33:01.699656
+[Eval] Iter: 1750 | Loss: 0.9724 | 2025-09-29 18:33:24.471484
+[Eval] Iter: 1800 | Loss: 0.8735 | 2025-09-29 18:33:48.022129
+[Eval] Iter: 1850 | Loss: 0.8814 | 2025-09-29 18:34:10.904424
+[Eval] Iter: 1900 | Loss: 0.8621 | 2025-09-29 18:34:34.934037
+[Eval] Iter: 1950 | Loss: 1.0341 | 2025-09-29 18:34:58.544854
+[Eval] Iter: 2000 | Loss: 1.0745 | 2025-09-29 18:35:21.765498
+[Eval] Iter: 2050 | Loss: 0.9163 | 2025-09-29 18:35:45.475246
+[Eval] Iter: 2100 | Loss: 0.9649 | 2025-09-29 18:36:08.343263
+[Eval] Iter: 2150 | Loss: 0.8136 | 2025-09-29 18:36:32.321410
+[Eval] Iter: 2200 | Loss: 1.2673 | 2025-09-29 18:36:55.880168
+[Eval] Iter: 2250 | Loss: 0.9168 | 2025-09-29 18:37:19.620447
+[Eval] Iter: 2300 | Loss: 1.0146 | 2025-09-29 18:37:44.233610
+[Eval] Iter: 2350 | Loss: 1.3455 | 2025-09-29 18:38:07.523103
+[Eval] Iter: 2400 | Loss: 0.7622 | 2025-09-29 18:38:31.348005
+[Eval] Iter: 2450 | Loss: 0.7586 | 2025-09-29 18:38:55.690714
+[Eval] Iter: 2500 | Loss: 1.0984 | 2025-09-29 18:39:18.644765
+[Eval] Iter: 2550 | Loss: 0.9197 | 2025-09-29 18:39:42.348685
+[Eval] Iter: 2600 | Loss: 0.7291 | 2025-09-29 18:40:06.848389
+[Eval] Iter: 2650 | Loss: 0.8267 | 2025-09-29 18:40:29.914534
+[Eval] Iter: 2700 | Loss: 0.8356 | 2025-09-29 18:40:53.247526
+[Eval] Iter: 2750 | Loss: 0.8325 | 2025-09-29 18:41:17.038378
+[Eval] Iter: 2800 | Loss: 0.6310 | 2025-09-29 18:41:40.254807
+[Eval] Iter: 2850 | Loss: 0.8170 | 2025-09-29 18:42:04.502471
+[Eval] Iter: 2900 | Loss: 0.8740 | 2025-09-29 18:42:28.219720
+[Eval] Iter: 2950 | Loss: 0.9692 | 2025-09-29 18:42:51.944783
+[Eval] Iter: 3000 | Loss: 1.3548 | 2025-09-29 18:43:16.624671
+[Eval] Iter: 3050 | Loss: 0.8293 | 2025-09-29 18:43:40.237014
+[Eval] Iter: 3100 | Loss: 0.4388 | 2025-09-29 18:44:04.165013
+[Eval] Iter: 3150 | Loss: 0.5201 | 2025-09-29 18:44:28.193469
+[Eval] Iter: 3200 | Loss: 0.8644 | 2025-09-29 18:44:50.884535
+[Eval] Iter: 3250 | Loss: 0.7929 | 2025-09-29 18:45:14.816030
+[Eval] Iter: 3300 | Loss: 0.8253 | 2025-09-29 18:45:39.070151
+[Eval] Iter: 3350 | Loss: 0.6089 | 2025-09-29 18:46:01.991306
+[Eval] Iter: 3400 | Loss: 0.7245 | 2025-09-29 18:46:25.261192
+[Eval] Iter: 3450 | Loss: 0.6448 | 2025-09-29 18:46:49.200490
+[Eval] Iter: 3500 | Loss: 0.7109 | 2025-09-29 18:47:13.176247
+[Eval] Iter: 3550 | Loss: 0.8258 | 2025-09-29 18:47:36.938730
+[Eval] Iter: 3600 | Loss: 0.9939 | 2025-09-29 18:48:01.174937
+[Eval] Iter: 3650 | Loss: 0.7049 | 2025-09-29 18:48:24.861698
+[Eval] Iter: 3700 | Loss: 0.8351 | 2025-09-29 18:48:48.492414
+[Eval] Iter: 3750 | Loss: 1.3346 | 2025-09-29 18:49:12.656223
+[Eval] Iter: 3800 | Loss: 0.7081 | 2025-09-29 18:49:34.497524
+[Eval] Iter: 3850 | Loss: 0.8920 | 2025-09-29 18:49:56.959778
+[Eval] Iter: 3900 | Loss: 1.2702 | 2025-09-29 18:50:19.625915
+[Eval] Iter: 3950 | Loss: 0.9189 | 2025-09-29 18:50:41.501427
+[Eval] Iter: 4000 | Loss: 1.0564 | 2025-09-29 18:51:03.654517
+[Eval] Iter: 4050 | Loss: 0.5172 | 2025-09-29 18:51:26.182755
+[Eval] Iter: 4100 | Loss: 0.8316 | 2025-09-29 18:51:48.436050
+[Eval] Iter: 4150 | Loss: 0.7299 | 2025-09-29 18:52:10.273023
+[Eval] Iter: 4200 | Loss: 0.6076 | 2025-09-29 18:52:32.437209
+[Eval] Iter: 4250 | Loss: 0.6641 | 2025-09-29 18:52:54.902312
+[Eval] Iter: 4300 | Loss: 0.7645 | 2025-09-29 18:53:16.577515
+[Eval] Iter: 4350 | Loss: 1.1379 | 2025-09-29 18:53:39.367225
+[Eval] Iter: 4400 | Loss: 0.6152 | 2025-09-29 18:54:02.059494
+[Eval] Iter: 4450 | Loss: 0.5462 | 2025-09-29 18:54:23.806611
+[Eval] Iter: 4500 | Loss: 0.5415 | 2025-09-29 18:54:46.121780
+*****Test Classes: [10, 6, 7, 19, 3, 13, 12, 5, 14, 2]*****
+----- [class 0]  IoU: 0.613102 -----
+----- [class 1]  IoU: 0.430815 -----
+----- [class 2]  IoU: 0.379028 -----
+----- [class 3]  IoU: 0.265001 -----
+----- [class 4]  IoU: 0.295496 -----
+----- [class 5]  IoU: 0.493064 -----
+----- [class 6]  IoU: 0.324402 -----
+----- [class 7]  IoU: 0.555354 -----
+----- [class 8]  IoU: 0.373843 -----
+----- [class 9]  IoU: 0.558446 -----
+----- [class 10]  IoU: 0.720726 -----
+
+=====[TEST] Loss: 0.8483 | Mean IoU: 0.439617 =====
+
+------------ Options -------------
+base_widths: [128, 64]
+batch_size: 32
+cvfold: 0
+data_path: D:/pointcloud/attMPTI-main/datasets/ScanNet/scenes/data
+dataset: scannet
+dgcnn_k: 20
+dgcnn_mlp_widths: [512, 256]
+dist_method: gaussian
+edgeconv_widths: [[64, 64], [64, 64], [64, 64]]
+eval_interval: 1500
+gamma: 0.5
+k_connect: 200
+k_shot: 1
+log_dir: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+lr: 0.001
+meta_path: D:/pointcloud/attMPTI-main/datasets/ScanNet/
+model_checkpoint_path: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+n_episode_test: 100
+n_iters: 30000
+n_queries: 1
+n_subprototypes: 100
+n_way: 2
+n_workers: 16
+output_dim: 64
+pc_attribs: xyzrgbXYZ
+pc_augm: False
+pc_augm_jitter: 1
+pc_augm_mirror_prob: 0
+pc_augm_rot: 1
+pc_augm_scale: 0
+pc_in_dim: 9
+pc_npts: 2048
+phase: mptieval
+pretrain_checkpoint_path: None
+pretrain_gamma: 0.5
+pretrain_lr: 0.001
+pretrain_step_size: 50
+pretrain_weight_decay: 0.0
+save_path: D:\pointcloud\attMPTI-main\log_ScanNet\log_mpti_scannet_S0_N2_K1_Att1
+sigma: 1.0
+step_size: 5000
+use_attention: True
+-------------- End ----------------
+
+[Eval] Iter: 50 | Loss: 0.8077 | 2025-09-29 21:40:33.015715
+[Eval] Iter: 100 | Loss: 1.0711 | 2025-09-29 21:40:57.255166
+[Eval] Iter: 150 | Loss: 0.8200 | 2025-09-29 21:41:21.592455
+[Eval] Iter: 200 | Loss: 0.9449 | 2025-09-29 21:41:46.190502
+[Eval] Iter: 250 | Loss: 0.8825 | 2025-09-29 21:42:11.104139
+[Eval] Iter: 300 | Loss: 0.8646 | 2025-09-29 21:42:35.805591
+[Eval] Iter: 350 | Loss: 0.9367 | 2025-09-29 21:43:00.613973
+[Eval] Iter: 400 | Loss: 0.8000 | 2025-09-29 21:43:25.789385
+[Eval] Iter: 450 | Loss: 0.9514 | 2025-09-29 21:43:50.404916
+[Eval] Iter: 500 | Loss: 0.8382 | 2025-09-29 21:44:12.926740
+[Eval] Iter: 550 | Loss: 1.1279 | 2025-09-29 21:44:34.412409
+[Eval] Iter: 600 | Loss: 0.8434 | 2025-09-29 21:44:56.101462
+[Eval] Iter: 650 | Loss: 0.5404 | 2025-09-29 21:45:17.813512
+[Eval] Iter: 700 | Loss: 0.7162 | 2025-09-29 21:45:39.637309
+[Eval] Iter: 750 | Loss: 0.5874 | 2025-09-29 21:46:01.363050
+[Eval] Iter: 800 | Loss: 1.1035 | 2025-09-29 21:46:22.789195
+[Eval] Iter: 850 | Loss: 1.0452 | 2025-09-29 21:46:44.352408
+[Eval] Iter: 900 | Loss: 1.2074 | 2025-09-29 21:47:06.087525
+[Eval] Iter: 950 | Loss: 0.9903 | 2025-09-29 21:47:27.790573
+[Eval] Iter: 1000 | Loss: 0.8575 | 2025-09-29 21:47:49.647397
+[Eval] Iter: 1050 | Loss: 0.7712 | 2025-09-29 21:48:11.319709
+[Eval] Iter: 1100 | Loss: 0.7594 | 2025-09-29 21:48:33.511911
+[Eval] Iter: 1150 | Loss: 0.7616 | 2025-09-29 21:48:55.062232
+[Eval] Iter: 1200 | Loss: 1.1864 | 2025-09-29 21:49:17.253540
+[Eval] Iter: 1250 | Loss: 0.9727 | 2025-09-29 21:49:39.307710
+[Eval] Iter: 1300 | Loss: 1.0386 | 2025-09-29 21:50:01.096126
+[Eval] Iter: 1350 | Loss: 1.0021 | 2025-09-29 21:50:23.073147
+[Eval] Iter: 1400 | Loss: 0.8222 | 2025-09-29 21:50:45.217325
+[Eval] Iter: 1450 | Loss: 1.0365 | 2025-09-29 21:51:07.161422
+[Eval] Iter: 1500 | Loss: 0.9908 | 2025-09-29 21:51:29.546198
+[Eval] Iter: 1550 | Loss: 1.1776 | 2025-09-29 21:51:51.277575
+[Eval] Iter: 1600 | Loss: 0.8552 | 2025-09-29 21:52:13.087425
+[Eval] Iter: 1650 | Loss: 0.6074 | 2025-09-29 21:52:35.209839
+[Eval] Iter: 1700 | Loss: 1.2759 | 2025-09-29 21:52:56.775481
+[Eval] Iter: 1750 | Loss: 1.0182 | 2025-09-29 21:53:19.106182
+[Eval] Iter: 1800 | Loss: 1.0189 | 2025-09-29 21:53:40.987723
+[Eval] Iter: 1850 | Loss: 0.6394 | 2025-09-29 21:54:03.126485
+[Eval] Iter: 1900 | Loss: 1.0999 | 2025-09-29 21:54:25.127286
+[Eval] Iter: 1950 | Loss: 1.2472 | 2025-09-29 21:54:46.501423
+[Eval] Iter: 2000 | Loss: 0.8351 | 2025-09-29 21:55:08.795208
+[Eval] Iter: 2050 | Loss: 1.1566 | 2025-09-29 21:55:30.905648
+[Eval] Iter: 2100 | Loss: 0.8863 | 2025-09-29 21:55:52.784512
+[Eval] Iter: 2150 | Loss: 1.3036 | 2025-09-29 21:56:15.054063
+[Eval] Iter: 2200 | Loss: 0.6284 | 2025-09-29 21:56:36.712536
+[Eval] Iter: 2250 | Loss: 0.8399 | 2025-09-29 21:56:58.985903
+[Eval] Iter: 2300 | Loss: 0.6656 | 2025-09-29 21:57:21.277916
+[Eval] Iter: 2350 | Loss: 0.6895 | 2025-09-29 21:57:42.948183
+[Eval] Iter: 2400 | Loss: 0.4676 | 2025-09-29 21:58:05.285804
+[Eval] Iter: 2450 | Loss: 1.0098 | 2025-09-29 21:58:27.157304
+[Eval] Iter: 2500 | Loss: 0.8671 | 2025-09-29 21:58:48.806458
+[Eval] Iter: 2550 | Loss: 0.9760 | 2025-09-29 21:59:11.228187
+[Eval] Iter: 2600 | Loss: 1.1219 | 2025-09-29 21:59:33.689257
+[Eval] Iter: 2650 | Loss: 0.9051 | 2025-09-29 21:59:55.635746
+[Eval] Iter: 2700 | Loss: 0.5883 | 2025-09-29 22:00:17.833244
+[Eval] Iter: 2750 | Loss: 1.7144 | 2025-09-29 22:00:40.210579
+[Eval] Iter: 2800 | Loss: 0.8014 | 2025-09-29 22:01:01.905393
+[Eval] Iter: 2850 | Loss: 0.4123 | 2025-09-29 22:01:24.852685
+[Eval] Iter: 2900 | Loss: 0.8669 | 2025-09-29 22:01:47.308706
+[Eval] Iter: 2950 | Loss: 0.7449 | 2025-09-29 22:02:09.360498
+[Eval] Iter: 3000 | Loss: 0.8111 | 2025-09-29 22:02:32.257152
+[Eval] Iter: 3050 | Loss: 0.6015 | 2025-09-29 22:02:54.921343
+[Eval] Iter: 3100 | Loss: 0.8264 | 2025-09-29 22:03:17.293433
+[Eval] Iter: 3150 | Loss: 0.6002 | 2025-09-29 22:03:40.499892
+[Eval] Iter: 3200 | Loss: 0.4767 | 2025-09-29 22:04:03.093222
+[Eval] Iter: 3250 | Loss: 0.9265 | 2025-09-29 22:04:25.812664
+[Eval] Iter: 3300 | Loss: 0.9015 | 2025-09-29 22:04:48.601627
+[Eval] Iter: 3350 | Loss: 0.5208 | 2025-09-29 22:05:11.314736
+[Eval] Iter: 3400 | Loss: 1.0505 | 2025-09-29 22:05:34.936218
+[Eval] Iter: 3450 | Loss: 1.1855 | 2025-09-29 22:05:57.768310
+[Eval] Iter: 3500 | Loss: 0.8274 | 2025-09-29 22:06:20.181907
+[Eval] Iter: 3550 | Loss: 1.0715 | 2025-09-29 22:06:43.464496
+[Eval] Iter: 3600 | Loss: 1.1133 | 2025-09-29 22:07:05.952896
+[Eval] Iter: 3650 | Loss: 0.6827 | 2025-09-29 22:07:28.947165
+[Eval] Iter: 3700 | Loss: 0.7172 | 2025-09-29 22:07:51.740706
+[Eval] Iter: 3750 | Loss: 0.8843 | 2025-09-29 22:08:14.065907
+[Eval] Iter: 3800 | Loss: 0.8666 | 2025-09-29 22:08:36.711309
+[Eval] Iter: 3850 | Loss: 0.5102 | 2025-09-29 22:08:59.732500
+[Eval] Iter: 3900 | Loss: 0.5762 | 2025-09-29 22:09:22.318929
+[Eval] Iter: 3950 | Loss: 0.5987 | 2025-09-29 22:09:45.118452
+[Eval] Iter: 4000 | Loss: 0.8919 | 2025-09-29 22:10:07.788102
+[Eval] Iter: 4050 | Loss: 0.8707 | 2025-09-29 22:10:29.889864
+[Eval] Iter: 4100 | Loss: 0.7360 | 2025-09-29 22:10:52.673419
+[Eval] Iter: 4150 | Loss: 0.7300 | 2025-09-29 22:11:15.540123
+[Eval] Iter: 4200 | Loss: 0.7410 | 2025-09-29 22:11:38.167149
+[Eval] Iter: 4250 | Loss: 0.7535 | 2025-09-29 22:12:01.524212
+[Eval] Iter: 4300 | Loss: 0.8416 | 2025-09-29 22:12:24.161334
+[Eval] Iter: 4350 | Loss: 0.5544 | 2025-09-29 22:12:46.674730
+[Eval] Iter: 4400 | Loss: 0.9332 | 2025-09-29 22:13:09.980496
+[Eval] Iter: 4450 | Loss: 0.6174 | 2025-09-29 22:13:32.928763
+[Eval] Iter: 4500 | Loss: 0.9498 | 2025-09-29 22:13:55.316527
+*****Test Classes: [10, 6, 7, 19, 3, 13, 12, 5, 14, 2]*****
+----- [class 0]  IoU: 0.613102 -----
+----- [class 1]  IoU: 0.430815 -----
+----- [class 2]  IoU: 0.379028 -----
+----- [class 3]  IoU: 0.265001 -----
+----- [class 4]  IoU: 0.295496 -----
+----- [class 5]  IoU: 0.493064 -----
+----- [class 6]  IoU: 0.324402 -----
+----- [class 7]  IoU: 0.555354 -----
+----- [class 8]  IoU: 0.373843 -----
+----- [class 9]  IoU: 0.558446 -----
+----- [class 10]  IoU: 0.720726 -----
+
+=====[TEST] Loss: 0.8483 | Mean IoU: 0.439617 =====
+
