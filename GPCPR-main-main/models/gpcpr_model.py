@@ -94,6 +94,9 @@ class GPCPR(nn.Module):
         self.dd_ratio1 = args.dd_ratio1
         self.dd_ratio2 = args.dd_ratio2
 
+        # Debug counter for initial forward calls
+        self._debug_forward_count = 0
+
     def forward(self, support_x, support_y, query_x, query_y, text_emb=None, text_emb_diff=None):
         """
         Args:
@@ -110,9 +113,19 @@ class GPCPR(nn.Module):
         support_feat = support_feat.view(self.n_way, self.k_shot, -1, self.n_points)
         query_feat, _ = self.getFeatures(query_x)
         # get bg/fg features: Fs'=Fs*Ms
-        fg_mask = support_y
-        bg_mask = torch.logical_not(support_y)
-        fg_prototypes, bg_prototype = self.getPrototype(self.getMaskedFeatures(support_feat, fg_mask), self.getMaskedFeatures(support_feat, bg_mask))
+        fg_mask = support_y.bool()
+        bg_mask = torch.logical_not(fg_mask)
+
+        # Lightweight debugging for first few forward calls
+        if self._debug_forward_count < 5:
+            with torch.no_grad():
+                fg_counts = fg_mask.sum(dim=2).detach().cpu()
+                print('[DEBUG] support fg point counts per way/shot:', fg_counts.tolist())
+                print('[DEBUG] support_feat shape:', list(support_feat.shape))
+                print('[DEBUG] query_feat shape:', list(query_feat.shape))
+            self._debug_forward_count += 1
+
+        fg_prototypes, bg_prototype = self.getPrototypeWeighted(support_feat, fg_mask, bg_mask)
         prototypes = [bg_prototype] + fg_prototypes
         prototypes = torch.stack(prototypes, dim=0)
 
@@ -152,7 +165,10 @@ class GPCPR(nn.Module):
 
         if self.use_transformer:   # QGPA & loss Lseg
             prototypes_all = prototypes.unsqueeze(0).repeat(query_feat.shape[0], 1, 1) # [2,3,320]
-            support_feat_ = support_feat.mean(1)  # [2, 320, 2048]
+            # Note: support_feat.mean(1) averages point index i across different support point clouds.
+            # This is unsafe for k_shot > 1 because point order is not semantically aligned.
+            # We use aggregateSupportForQGPA to gather foreground points across shots instead.
+            support_feat_ = self.aggregateSupportForQGPA(support_feat, fg_mask)
             prototypes_all_post = self.transformer(query_feat, support_feat_, prototypes_all)
 
             prototypes_new = torch.chunk(prototypes_all_post, prototypes_all_post.shape[1], dim=1)
@@ -289,6 +305,78 @@ class GPCPR(nn.Module):
         fg_prototypes = [fg_feat[way, ...].sum(dim=0) / self.k_shot for way in range(self.n_way)]
         bg_prototype = bg_feat.sum(dim=(0, 1)) / (self.n_way * self.k_shot)
         return fg_prototypes, bg_prototype
+
+    def getPrototypeWeighted(self, feat, fg_mask, bg_mask):
+        """
+        Compute prototypes using all valid points, not equal averaging over shots.
+        For foreground, each way gets one prototype from all foreground points across its k shots.
+        For background, one shared background prototype is computed from all background points across all ways and shots.
+
+        Args:
+            feat: [n_way, k_shot, C, N]
+            fg_mask: [n_way, k_shot, N], bool
+            bg_mask: [n_way, k_shot, N], bool
+        Returns:
+            fg_prototypes: a list of n_way foreground prototypes, each prototype is a vector with shape (C,)
+            bg_prototype: background prototype, a vector with shape (C,)
+        """
+        fg_mask = fg_mask.float()
+        bg_mask = bg_mask.float()
+
+        fg_mask_ = fg_mask.unsqueeze(2)  # [n_way, k_shot, 1, N]
+        bg_mask_ = bg_mask.unsqueeze(2)  # [n_way, k_shot, 1, N]
+
+        fg_sum = (feat * fg_mask_).sum(dim=(1, 3))  # [n_way, C]
+        fg_cnt = fg_mask_.sum(dim=(1, 3)).clamp_min(1.0)  # [n_way, 1]
+        fg_proto_tensor = fg_sum / fg_cnt  # [n_way, C]
+
+        bg_sum = (feat * bg_mask_).sum(dim=(0, 1, 3))  # [C]
+        bg_cnt = bg_mask_.sum(dim=(0, 1, 3)).clamp_min(1.0)  # [1]
+        bg_prototype = bg_sum / bg_cnt  # [C]
+
+        fg_prototypes = [fg_proto_tensor[way] for way in range(self.n_way)]
+        return fg_prototypes, bg_prototype
+
+    def aggregateSupportForQGPA(self, support_feat, fg_mask):
+        """
+        QGPA expects class-wise support features with shape [n_way, C, N].
+        The old implementation used support_feat.mean(1), which averages different point clouds by point index.
+        This is unsafe for k_shot > 1 because point order is not semantically aligned across different point clouds.
+        This implementation gathers real foreground support features across all shots for each way,
+        then samples/pads to self.n_points.
+        If a way has too few foreground points, fall back to all support points of that way.
+
+        Args:
+            support_feat: [n_way, k_shot, C, N]
+            fg_mask: [n_way, k_shot, N], bool
+        Returns:
+            support_feat_: [n_way, C, N]
+        """
+        n_way, k_shot, C, N = support_feat.shape
+        outputs = []
+
+        for way in range(n_way):
+            feat_way = support_feat[way]  # [k_shot, C, N]
+            mask_way = fg_mask[way].bool()  # [k_shot, N]
+
+            # Convert to [k_shot, N, C], then select foreground points.
+            feat_points = feat_way.permute(0, 2, 1).contiguous()  # [k_shot, N, C]
+
+            if mask_way.sum() > 0:
+                selected = feat_points[mask_way]  # [num_fg_points, C]
+            else:
+                selected = feat_points.view(-1, C)  # fallback: [k_shot * N, C]
+
+            total = selected.shape[0]
+            if total >= self.n_points:
+                idx = torch.randperm(total, device=selected.device)[:self.n_points]
+            else:
+                idx = torch.randint(0, total, (self.n_points,), device=selected.device)
+
+            selected = selected[idx]  # [N, C]
+            outputs.append(selected.transpose(0, 1).contiguous())  # [C, N]
+
+        return torch.stack(outputs, dim=0)  # [n_way, C, N]
 
 
     def calculateSimilarity(self, feat, prototype, method='cosine', scaler=10):

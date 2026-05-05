@@ -30,6 +30,3 @@ gpt35
 1
 --dd_ratio2
 1
---use_similarity_head
---use_shallow_head
---use_deep_head

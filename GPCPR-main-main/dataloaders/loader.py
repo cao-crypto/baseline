@@ -65,16 +65,50 @@ def sample_pointcloud(data_path, num_point, pc_attribs, pc_augm, pc_augm_config,
         # If this point cloud is for support/query set, make sure that the sampled points contain target class
         valid_point_inds = np.nonzero(data[:,6] == sampled_class)[0]  # indices of points belonging to the sampled class
 
-        if N < num_point:
-            sampled_valid_point_num = len(valid_point_inds)
-        else:
-            valid_ratio = len(valid_point_inds)/float(N)
-            sampled_valid_point_num = int(valid_ratio*num_point)
+        # Raise error if no target-class points found (invalid sample)
+        if len(valid_point_inds) == 0:
+            raise RuntimeError(
+                f'No target-class points found in scan {scan_name} for class {sampled_class}'
+            )
 
-        sampled_valid_point_inds = np.random.choice(valid_point_inds, sampled_valid_point_num, replace=False)
-        sampled_other_point_inds = np.random.choice(np.arange(N), num_point-sampled_valid_point_num,
-                                                    replace=(N<num_point))
-        sampled_point_inds = np.concatenate([sampled_valid_point_inds, sampled_other_point_inds])
+        # Enforce minimum foreground points for support samples
+        if support:
+            min_fg_points = max(32, int(0.02 * num_point))
+        else:
+            min_fg_points = 1
+
+        # Calculate sampled foreground points with minimum guarantee
+        valid_ratio = len(valid_point_inds) / float(N)
+        sampled_valid_point_num = max(min_fg_points, int(valid_ratio * num_point))
+        sampled_valid_point_num = min(sampled_valid_point_num, num_point)
+
+        # Sample foreground indices with replacement if needed
+        sampled_valid_point_inds = np.random.choice(
+            valid_point_inds,
+            sampled_valid_point_num,
+            replace=(len(valid_point_inds) < sampled_valid_point_num)
+        )
+
+        # Sample remaining points from non-foreground if possible
+        remaining_num = num_point - sampled_valid_point_num
+        if remaining_num > 0:
+            all_inds = np.arange(N)
+            other_point_inds = np.setdiff1d(all_inds, sampled_valid_point_inds, assume_unique=False)
+            if len(other_point_inds) == 0:
+                other_point_inds = all_inds
+
+            sampled_other_point_inds = np.random.choice(
+                other_point_inds,
+                remaining_num,
+                replace=(len(other_point_inds) < remaining_num)
+            )
+
+            sampled_point_inds = np.concatenate([sampled_valid_point_inds, sampled_other_point_inds])
+        else:
+            sampled_point_inds = sampled_valid_point_inds
+
+        # Shuffle to avoid ordered foreground/background blocks
+        np.random.shuffle(sampled_point_inds)
 
     data = data[sampled_point_inds]
     xyz = data[:, 0:3]
